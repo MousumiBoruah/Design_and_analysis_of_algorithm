@@ -14,15 +14,29 @@ def sort(jobs):
 			if jobs[j][2] < jobs[j+1][2]:
 				jobs[j],jobs[j+1] = jobs[j+1],jobs[j]
 	print(jobs)
-def job_scheduling(jobs,max_limit):
-	new_jobs = [0] * max_limit
+def job_scheduling(jobs):
+	new_jobs = [0] * len(jobs)
+	check = [0] * len(jobs)
 	print(new_jobs)
 	profit = 0
-	for i in range(max_limit):
+	for i in range(len(jobs)):
 		if (i+1) <= jobs[i][1]:
 			new_jobs[i] = jobs[i][1]
 			profit += jobs[i][2]
+			check[i]=1
+	print(check)
 	print(new_jobs)
+	print(profit)
+	for i in range(1,len(jobs)):
+		if new_jobs[i] == 0:
+			for j in range(i,len(jobs)):
+				if jobs[j][1] > i and check[j] == 0:
+					new_jobs[i] = jobs[j][1]
+					profit += jobs[j][2]
+					break
+
+
+	print(new_jobs)	
 	print(profit)
 def main():
 	jobs = [['1',9,14],
@@ -38,11 +52,13 @@ def main():
 	]
 	max_limit = max_time(jobs)
 	sort(jobs)
-	job_scheduling(jobs,max_limit)
+	job_scheduling(jobs)
 
 
 
 if __name__ == '__main__':
 	main()
+
+
 
 
