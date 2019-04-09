@@ -13,6 +13,7 @@ def sort(jobs):
 		for j in range(n - i - 1):
 			if jobs[j][2] < jobs[j+1][2]:
 				jobs[j],jobs[j+1] = jobs[j+1],jobs[j]
+	print("The jobs are sorted according to their profit")
 	print(jobs)
 def job_scheduling(jobs,max_limit):
 	new_jobs = [0] * len(jobs)
@@ -23,10 +24,11 @@ def job_scheduling(jobs,max_limit):
 			if check[j] == 0:
 				check[j] = 1
 				new_jobs[j] = jobs[i][0]
-				print(profit)
 				profit += jobs[i][2]
 				break
+	print("Scheduled jobs with respect to index")				
 	print(new_jobs)
+	print("Maximum profit is")
 	print(profit)
     #print(check)
 def main():
@@ -49,5 +51,8 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
+
+
 
 
