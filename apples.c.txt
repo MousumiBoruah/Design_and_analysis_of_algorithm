@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<stdlib.h>
+void merge(int* ,int* ,int  ,int ,int);
+void mergesort(int* ,int [],int ,int);
+void print(int* ,int ,int );
+int isLarge(int* , int , int );
+int main(){
+	int apple_size[6] = {54,12,0,100,45,16};
+	int size_index[6] = {0,1,2,3,4,5};
+	print(size_index,0,6);
+	printf("\n");
+	mergesort(apple_size, size_index,0,5);
+	print(size_index,0,6);
+}
+
+int isLarge(int* a, int i , int j){
+	if(a[i] < a[j])
+		return -1;
+	else
+		return 1;
+}
+void merge(int *apple_size,int *a,int left ,int mid ,int right){
+	int i=0 , j=0 , k =left , n1 ,n2,l=0;
+	n1 = mid - left + 1;
+	n2 = right - mid;
+	int a_left[n1] , a_right[n2];
+	for(i = 0 ; i < n1 ; i++){
+		a_left[i] = a[left + i];
+	}
+	for (j = 0; j < n2 ; j++)
+	{
+		a_right[j] = a[mid + 1 + j];
+	}
+	i = 0 ; j = 0;
+	while(i < n1 && j < n2){
+		//printf("kdhfhdakc");
+		if(isLarge(apple_size, a_left[i],a_right[j]) == -1){
+			a[k++] = a_left[i++];
+			//printf("mmmmm");
+		}
+		else if(isLarge(apple_size, a_left[i],a_right[j]) == 1){
+			a[k++] = a_right[j++];
+			j++;
+			//printf("ddd");
+		}
+	}
+	while(i < n1){
+		a[k++] = a_left[i++];
+		
+	}
+	while(j < n2){
+		a[k++] = a_right[j];
+		
+	}
+}
+void mergesort(int *apple_size,int *a,int left ,int right){
+	if(left < right){
+		int mid = (left + right - 1)/2;
+		mergesort(apple_size, a,left,mid);
+		mergesort(apple_size, a,mid+1,right);
+		merge(apple_size,a,left,mid,right);
+	}
+}
+
+
+void print(int *size_index,int i,int j){
+	for(i = 0;i < j ; i++){
+		printf("%d ",size_index[i]);
+	}
+}
